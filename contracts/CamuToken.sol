@@ -1,4 +1,4 @@
-
+﻿
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -21,6 +21,7 @@ contract CamuToken is ERC20, Ownable {
         founderWallet = _founderWallet;
         daoTreasury = _daoTreasury;
         _mint(msg.sender, initialSupply);
+        transferOwnership(initialOwner);
     }
 
     function mint(address to, uint256 amount) external onlyOwner {
@@ -57,5 +58,7 @@ contract CamuToken is ERC20, Ownable {
         daoTreasury = newDaoTreasury;
     }
 }
+
+
 
 

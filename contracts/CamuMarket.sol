@@ -1,6 +1,6 @@
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -31,7 +31,7 @@ contract NFTMarketplace is Ownable {
         address _camuCoinAddress,
         address _founderWallet,
         address _daoTreasury
-    ) Ownable(msg.sender) {
+    ) Ownable() {
         require(_founderWallet != address(0) && _daoTreasury != address(0), "Invalid address");
         camuCoin = IERC20(_camuCoinAddress);
         founderWallet = _founderWallet;
@@ -74,3 +74,5 @@ contract NFTMarketplace is Ownable {
         daoTreasury = _treasury;
     }
 }
+
+

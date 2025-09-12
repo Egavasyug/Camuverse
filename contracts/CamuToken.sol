@@ -1,6 +1,6 @@
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -16,7 +16,7 @@ contract CamuToken is ERC20, Ownable {
         address initialOwner,
         address _founderWallet,
         address _daoTreasury
-    ) ERC20("CamuToken", "CAMT") Ownable(initialOwner) {
+    ) ERC20("CamuToken", "CAMT") Ownable() {
         require(_founderWallet != address(0) && _daoTreasury != address(0), "Invalid address");
         founderWallet = _founderWallet;
         daoTreasury = _daoTreasury;
@@ -57,3 +57,5 @@ contract CamuToken is ERC20, Ownable {
         daoTreasury = newDaoTreasury;
     }
 }
+
+

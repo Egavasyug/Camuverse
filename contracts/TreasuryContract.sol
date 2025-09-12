@@ -1,6 +1,6 @@
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -35,7 +35,7 @@ contract MultiSigTreasury is Ownable {
         _;
     }
 
-    constructor(address[] memory _signers, uint256 _requiredApprovals) Ownable(msg.sender) {
+    constructor(address[] memory _signers, uint256 _requiredApprovals) Ownable() {
         require(_signers.length >= _requiredApprovals && _requiredApprovals > 0, "Invalid signer setup");
         signers = _signers;
         requiredApprovals = _requiredApprovals;
@@ -82,3 +82,5 @@ contract MultiSigTreasury is Ownable {
         return false;
     }
 }
+
+

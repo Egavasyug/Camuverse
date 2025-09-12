@@ -1,0 +1,17 @@
+﻿{
+    "name":  "camuverse",
+    "version":  "1.0.0",
+    "license":  "MIT",
+    "scripts":  {
+                    "compile":  "hardhat compile"
+                },
+    "devDependencies":  {
+                            "hardhat":  "^2.22.7",
+                            "@nomicfoundation/hardhat-toolbox":  "^4.0.0",
+                            "@openzeppelin/contracts":  "^4.9.5",
+                            "solc":  "^0.8.20"
+                        },
+    "dependencies":  {
+                         "ethers":  "^6.12.0"
+                     }
+}

@@ -9,7 +9,8 @@ import "./ICamuCoin.sol";
 
 /**
  * @title ModifiedCammunityDAO
- * @notice Two-stage governance: Stage 1 (verified CAMC holders) + Stage 2 (token-weighted CAMT).
+ * @notice Two-stage governance: Stage 1 (verified CAMC holders) + Stage 2 (token-weighted CAMT),
+ *         with monthly spend caps and optional termination safeguards.
  */
 interface ITreasury {
     function requestWithdrawal(address payable to, uint256 amount) external returns (uint256);
@@ -35,6 +36,12 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
      */
     uint256 public stage1ThresholdPercent = 10; // 10%
 
+    // Timeframes for voting windows
+    // stage1Duration: time from creation for Stage 1 voting
+    // stage2Duration: time after Stage 1 for Stage 2 voting
+    uint256 public stage1Duration = 3 days;
+    uint256 public stage2Duration = 7 days;
+
     enum ProposalType { TEXT, FUNDING, TERMINATION }
 
     struct Proposal {
@@ -46,6 +53,8 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
         uint256 verifiedVotes;
         uint256 tokenVotes;
         uint256 voteStart;
+        uint256 stage1Deadline;
+        uint256 stage2Deadline;
         bool stage1Passed;
         bool executed;
         mapping(address => bool) verifiedVoted;
@@ -80,6 +89,17 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
     }
 
     /**
+     * @notice Update voting durations. Only callable by DAO (self) via executed proposal.
+     */
+    function updateDurations(uint256 s1, uint256 s2) external {
+        require(msg.sender == address(this), "Only DAO");
+        require(s1 >= 1 days && s1 <= 14 days, "s1 out of range");
+        require(s2 >= 1 days && s2 <= 30 days, "s2 out of range");
+        stage1Duration = s1;
+        stage2Duration = s2;
+    }
+
+    /**
      * @notice Any CAMC holder can create a proposal.
      */
     function createProposal(
@@ -96,12 +116,14 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
         p.target = target;
         p.amount = amount;
         p.voteStart = block.timestamp;
+        p.stage1Deadline = p.voteStart + stage1Duration;
+        p.stage2Deadline = p.stage1Deadline + stage2Duration;
         emit NewProposal(proposalCount, description, proposalType);
         proposalCount++;
     }
 
     /**
-     * @notice Stage 1 (verified members with CAMC), threshold-based.
+     * @notice Stage 1 (verified members with CAMC), threshold-based and time-bound.
      */
     function voteStage1(uint256 proposalId) external {
         Proposal storage p = proposals[proposalId];
@@ -109,6 +131,7 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
         (, , bool isVerified) = camuVerify.members(msg.sender);
         require(isVerified, "Not verified");
         require(camuCoin.balanceOf(msg.sender) > 0, "No CAMC");
+        require(block.timestamp <= p.stage1Deadline, "Stage1 ended");
         p.verifiedVotes++;
         p.verifiedVoted[msg.sender] = true;
         uint256 required = (camuVerify.verifiedCount() * stage1ThresholdPercent + 99) / 100;
@@ -117,12 +140,13 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
     }
 
     /**
-     * @notice Stage 2 (token-weighted CAMT), only after stage1 passes.
+     * @notice Stage 2 (token-weighted CAMT), only after stage1 passes and before stage2 deadline.
      */
     function voteStage2(uint256 proposalId) external {
         Proposal storage p = proposals[proposalId];
         require(p.stage1Passed, "Stage1 not passed");
         require(!p.tokenVoted[msg.sender], "Voted stage2");
+        require(block.timestamp <= p.stage2Deadline, "Stage2 ended");
         uint256 weight = camuToken.balanceOf(msg.sender);
         require(weight > 0, "No voting power");
         p.tokenVotes += weight;
@@ -130,12 +154,13 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
     }
 
     /**
-     * @notice Execute after stage2. Applies budget caps for FUNDING and strict rules for TERMINATION.
+     * @notice Execute after stage2 window ends. Applies budget caps for FUNDING and strict rules for TERMINATION.
      */
     function executeProposal(uint256 proposalId) external nonReentrant {
         Proposal storage p = proposals[proposalId];
         require(p.stage1Passed, "Stage1 not passed");
         require(!p.executed, "Executed");
+        require(block.timestamp > p.stage2Deadline, "Voting not ended");
         uint256 totalVotes = camuToken.totalSupply();
         uint256 quorum = (p.tokenVotes * 100) / totalVotes;
 
@@ -161,6 +186,4 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
         emit ProposalExecuted(proposalId);
     }
 }
-
-
 

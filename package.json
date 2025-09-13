@@ -2,10 +2,12 @@
     "name": "camuverse",
     "version": "1.0.0",
     "license": "MIT",
-    "scripts": {
-        "compile": "hardhat compile",
-        "compare": "node scripts/compare-onchain.mjs"
-    },
+  "scripts": {
+    "compile": "hardhat compile",
+    "compare": "node scripts/compare-onchain.mjs",
+    "deploy:dao": "hardhat run scripts/deploy-dao-proxy.js --network base",
+    "upgrade:dao": "hardhat run scripts/upgrade-dao.js --network base"
+  },
     "devDependencies": {
         "@nomicfoundation/hardhat-toolbox": "^4.0.0",
         "@openzeppelin/contracts": "^4.9.5",

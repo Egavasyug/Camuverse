@@ -23,6 +23,10 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
     ICamuToken public camuToken;
     ITreasury public treasury;
 
+    // One-time bootstrap admin to wire initial addresses before tokens/governance exist
+    address public bootstrapAdmin;
+    bool public setupFinalized;
+
     // total number of proposals created
     uint256 public proposalCount;
     // used to reset monthly spending limits
@@ -65,6 +69,11 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
 
     event NewProposal(uint256 indexed id, string description, ProposalType proposalType);
     event ProposalExecuted(uint256 indexed id);
+    event CamuVerifyUpdated(address indexed newAddr);
+    event CamuCoinUpdated(address indexed newAddr);
+    event CamuTokenUpdated(address indexed newAddr);
+    event TreasuryUpdated(address indexed newAddr);
+    event SetupFinalized(address indexed admin);
 
     constructor(
         address _camuVerify,
@@ -77,13 +86,24 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
         camuToken = ICamuToken(_camuToken);
         treasury = ITreasury(_treasury);
         lastResetMonth = block.timestamp / 30 days;
+        bootstrapAdmin = msg.sender;
+    }
+
+    modifier onlyDAO() {
+        require(msg.sender == address(this), "Only DAO");
+        _;
+    }
+
+    modifier onlyBootstrap() {
+        require(msg.sender == bootstrapAdmin, "Only bootstrap");
+        require(!setupFinalized, "Setup finalized");
+        _;
     }
 
     /**
      * @notice Update Stage 1 quorum threshold. Only callable by DAO (self) via executed proposal.
      */
-    function updateStage1Threshold(uint256 percent) external {
-        require(msg.sender == address(this), "Only DAO");
+    function updateStage1Threshold(uint256 percent) external onlyDAO {
         require(percent >= 5 && percent <= 50, "Invalid threshold");
         stage1ThresholdPercent = percent;
     }
@@ -91,12 +111,64 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
     /**
      * @notice Update voting durations. Only callable by DAO (self) via executed proposal.
      */
-    function updateDurations(uint256 s1, uint256 s2) external {
-        require(msg.sender == address(this), "Only DAO");
+    function updateDurations(uint256 s1, uint256 s2) external onlyDAO {
         require(s1 >= 1 days && s1 <= 14 days, "s1 out of range");
         require(s2 >= 1 days && s2 <= 30 days, "s2 out of range");
         stage1Duration = s1;
         stage2Duration = s2;
+    }
+
+    /**
+     * @notice Bootstrap initial addresses before governance is live. One-time and then disabled.
+     */
+    function bootstrapSetAddresses(
+        address _camuVerify,
+        address _camuCoin,
+        address _camuToken,
+        address _treasury
+    ) external onlyBootstrap {
+        require(_camuVerify != address(0) && _camuCoin != address(0) && _camuToken != address(0) && _treasury != address(0), "Zero addr");
+        camuVerify = ICamuVerify(_camuVerify);
+        camuCoin = ICamuCoin(_camuCoin);
+        camuToken = ICamuToken(_camuToken);
+        treasury = ITreasury(_treasury);
+        emit CamuVerifyUpdated(_camuVerify);
+        emit CamuCoinUpdated(_camuCoin);
+        emit CamuTokenUpdated(_camuToken);
+        emit TreasuryUpdated(_treasury);
+    }
+
+    function finalizeSetup() external onlyBootstrap {
+        setupFinalized = true;
+        emit SetupFinalized(bootstrapAdmin);
+        bootstrapAdmin = address(0);
+    }
+
+    /**
+     * @notice Governance-controlled address updates. Callable only via successful DAO proposal (self-call).
+     */
+    function updateCamuVerify(address a) external onlyDAO {
+        require(a != address(0), "Zero addr");
+        camuVerify = ICamuVerify(a);
+        emit CamuVerifyUpdated(a);
+    }
+
+    function updateCamuCoin(address a) external onlyDAO {
+        require(a != address(0), "Zero addr");
+        camuCoin = ICamuCoin(a);
+        emit CamuCoinUpdated(a);
+    }
+
+    function updateCamuToken(address a) external onlyDAO {
+        require(a != address(0), "Zero addr");
+        camuToken = ICamuToken(a);
+        emit CamuTokenUpdated(a);
+    }
+
+    function updateTreasury(address a) external onlyDAO {
+        require(a != address(0), "Zero addr");
+        treasury = ITreasury(a);
+        emit TreasuryUpdated(a);
     }
 
     /**

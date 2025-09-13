@@ -5,13 +5,15 @@
     "scripts": {
         "compile": "hardhat compile",
         "compare": "node scripts/compare-onchain.mjs",
-        "deploy:dao": "hardhat run scripts/deploy-dao-proxy.js --network base",
-        "upgrade:dao": "hardhat run scripts/upgrade-dao.js --network base",
-        "deploy:dao:test": "hardhat run scripts/deploy-dao-proxy.js --network baseSepolia",
-        "upgrade:dao:test": "hardhat run scripts/upgrade-dao.js --network baseSepolia",
-        "verify:impl": "hardhat run scripts/verify-impl.js --network base",
-        "verify:impl:test": "hardhat run scripts/verify-impl.js --network baseSepolia"
-    },
+    "deploy:dao": "hardhat run scripts/deploy-dao-proxy.js --network base",
+    "upgrade:dao": "hardhat run scripts/upgrade-dao.js --network base",
+    "deploy:dao:test": "hardhat run scripts/deploy-dao-proxy.js --network baseSepolia",
+    "upgrade:dao:test": "hardhat run scripts/upgrade-dao.js --network baseSepolia",
+    "deploy:verify": "hardhat run scripts/deploy-and-verify.js --network base",
+    "deploy:verify:test": "hardhat run scripts/deploy-and-verify.js --network baseSepolia",
+    "verify:impl": "hardhat run scripts/verify-impl.js --network base",
+    "verify:impl:test": "hardhat run scripts/verify-impl.js --network baseSepolia"
+  },
     "devDependencies": {
         "@nomicfoundation/hardhat-toolbox": "^4.0.0",
         "@nomicfoundation/hardhat-verify": "^3.0.2",

@@ -162,6 +162,7 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
         require(!p.executed, "Executed");
         require(block.timestamp > p.stage2Deadline, "Voting not ended");
         uint256 totalVotes = camuToken.totalSupply();
+        require(totalVotes > 0, "No CAMT supply");
         uint256 quorum = (p.tokenVotes * 100) / totalVotes;
 
         if (p.proposalType == ProposalType.FUNDING) {
@@ -186,4 +187,3 @@ contract ModifiedCammunityDAO is Ownable, ReentrancyGuard {
         emit ProposalExecuted(proposalId);
     }
 }
-

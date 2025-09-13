@@ -20,6 +20,7 @@ module.exports = {
 /** @type import('hardhat/config').HardhatUserConfig */
 require('dotenv').config();
 require('@openzeppelin/hardhat-upgrades');
+require('@nomicfoundation/hardhat-verify');
 
 module.exports = {
   solidity: {
@@ -39,6 +40,16 @@ module.exports = {
     base: {
       url: process.env.BASE_RPC_URL || '',
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
+    },
+    baseSepolia: {
+      url: process.env.BASE_SEPOLIA_RPC_URL || 'https://sepolia.base.org',
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
+    }
+  },
+  etherscan: {
+    apiKey: {
+      base: process.env.ETHERSCAN_API_KEY || process.env.BASESCAN_API_KEY || '',
+      baseSepolia: process.env.ETHERSCAN_API_KEY || process.env.BASESCAN_API_KEY || ''
     }
   }
 };

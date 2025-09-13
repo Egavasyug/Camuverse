@@ -2,17 +2,23 @@
     "name": "camuverse",
     "version": "1.0.0",
     "license": "MIT",
-  "scripts": {
-    "compile": "hardhat compile",
-    "compare": "node scripts/compare-onchain.mjs",
-    "deploy:dao": "hardhat run scripts/deploy-dao-proxy.js --network base",
-    "upgrade:dao": "hardhat run scripts/upgrade-dao.js --network base"
-  },
+    "scripts": {
+        "compile": "hardhat compile",
+        "compare": "node scripts/compare-onchain.mjs",
+        "deploy:dao": "hardhat run scripts/deploy-dao-proxy.js --network base",
+        "upgrade:dao": "hardhat run scripts/upgrade-dao.js --network base",
+        "deploy:dao:test": "hardhat run scripts/deploy-dao-proxy.js --network baseSepolia",
+        "upgrade:dao:test": "hardhat run scripts/upgrade-dao.js --network baseSepolia",
+        "verify:impl": "hardhat run scripts/verify-impl.js --network base",
+        "verify:impl:test": "hardhat run scripts/verify-impl.js --network baseSepolia"
+    },
     "devDependencies": {
         "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+        "@nomicfoundation/hardhat-verify": "^3.0.2",
         "@openzeppelin/contracts": "^4.9.5",
-        "@openzeppelin/contracts-upgradeable": "4.9.5",
-        "@openzeppelin/hardhat-upgrades": "1.36.0",
+        "@openzeppelin/contracts-upgradeable": "^4.9.6",
+        "@openzeppelin/hardhat-upgrades": "^3.9.1",
+        "dotenv": "^17.2.2",
         "hardhat": "^2.22.7",
         "solc": "^0.8.20"
     },

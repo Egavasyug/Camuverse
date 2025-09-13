@@ -1,4 +1,5 @@
 ﻿/** @type import('hardhat/config').HardhatUserConfig */
+require('@openzeppelin/hardhat-upgrades');
 module.exports = {
   solidity: {
     compilers: [
@@ -14,3 +15,5 @@ module.exports = {
   },
   paths: { sources: 'contracts' }
 };
+
+

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+﻿// SPDX-License-Identifier: MIT
 // Usage: set DAO_PROXY in env, then: npx hardhat run scripts/upgrade-dao.js --network base
 const { ethers, upgrades } = require('hardhat');
 
@@ -10,7 +10,7 @@ async function main() {
   console.log('Upgrader:', deployer.address);
   console.log('Target proxy:', proxy);
 
-  const DAO = await ethers.getContractFactory('ModifiedCammunityDAOUpgradeable');
+  const DAO = await ethers.getContractFactory('contracts/CammunityDAOUpg.sol:CammunityDAO');
 
   // Optional: Prepare the implementation first (useful for review/verification)
   console.log('Preparing new implementation...');
@@ -27,4 +27,6 @@ async function main() {
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
+
+
 

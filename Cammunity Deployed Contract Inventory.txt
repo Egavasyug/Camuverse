@@ -1,0 +1,107 @@
+Here’s a concise inventory of what’s live on Base, with addresses and key external functions plus arguments.
+
+DAO + Proxy
+
+Proxy TransparentUpgradeableProxy: 0xF5dbA67c3803833836259720f1cDFd0725468dAc
+implementation(): returns logic address
+admin(): returns admin address
+changeAdmin(address newAdmin)
+upgradeTo(address newImplementation)
+upgradeToAndCall(address newImplementation, bytes data)
+CammunityDAO (logic): 0x835c337d5Cf784F789A14E35B4fe69d596E33469
+initialize(address camuVerify, address camuCoin, address camuToken, address treasury, address bootstrapAdmin)
+updateStage1Threshold(uint256 percent)
+updateDurations(uint256 s1, uint256 s2)
+bootstrapSetAddresses(address camuVerify, address camuCoin, address camuToken, address treasury)
+finalizeSetup()
+updateCamuVerify(address a), updateCamuCoin(address a), updateCamuToken(address a), updateTreasury(address a)
+createProposal(string description, uint8 proposalType, address payable target, uint256 amount)
+createConfigProposal(string description, address target, bytes data)
+voteStage1(uint256 proposalId), voteStage2(uint256 proposalId)
+executeProposal(uint256 proposalId)
+ProxyAdmin (admin of proxies): 0x8cfc0cdeb12f65286474d6fdb27efe45da660f51
+changeProxyAdmin(address proxy, address newAdmin)
+upgrade(address proxy, address implementation)
+upgradeAndCall(address proxy, address implementation, bytes data)
+getProxyImplementation(address proxy), getProxyAdmin(address proxy)
+Wrappers
+
+VestingWrapperUpg (proxy): 0x083D68D5FD70aeF71fc84345ec3B1F1E5204c6E3
+setVerify(address newVerify)
+setMetrics(address newMetrics)
+setContentOracle(address newContent)
+unlockForVerification(address influencer)
+unlockNextMilestone(address influencer)
+getUnlockedTokens(address influencer) returns uint256
+VestingWrapperUpg (implementation): 0xBCeA373D66b354c3f2b2653A24152FBcE6001e17
+VestingWrapper (legacy, deprecated): 0xbf79e864466fa30AA3f590794AC0452A336749B9
+unlockForVerification(address influencer)
+unlockNextMilestone(address influencer)
+getUnlockedTokens(address influencer) returns uint256
+Core Ecosystem
+
+CamuVerify: 0x805fd312C62714a87Bcd15F191D1B4Ce67AefeAd
+addVerifier(address verifier) onlyOwner
+removeVerifier(address verifier) onlyOwner
+verifyMember(address user, uint16 birthYear) onlyVerifier
+isVerified(address user) returns bool
+isAdult(address user) returns bool
+MultiSigTreasury: 0xdFB884d7630CD47C539e276aa5a62ce59F607687
+deposit() payable
+setDAO(address dao) onlyOwner
+requestWithdrawal(address payable to, uint256 amount) onlyDAO returns uint256 id
+approveWithdrawal(uint256 id) onlySigner
+isSigner(address account) view returns bool
+CamuToken (ERC20): 0x52407303937a59C12Cb0D8Cd1B64c33dC94c6899
+mint(address to, uint256 amount) onlyOwner
+burn(uint256 amount)
+mintWithFee(uint256 amount) payable
+updateMintFee(uint256 newFee) onlyOwner
+updateFounderPercentage(uint256 newPct) onlyOwner
+updateWallets(address newFounder, address newTreasury) onlyOwner
+CamuCoin (ERC20 with fees): 0x4180bB0503ec74eEC9017Ea49B619FecF367E725
+setFees(uint256 daoFeePct, uint256 lpFeePct) onlyOwner
+setWallets(address daoWallet, address lpVault) onlyOwner
+setFeeExclusion(address account, bool excluded) onlyOwner
+mint(address to, uint256 amount) onlyOwner
+initialMint(address treasury, address vestingWallet, address lpOrFounders) onlyOwner
+CAMTStakingVault: 0xEa29Ec8dc3403C6Fe1cA565c6798141B57d94328
+stake(uint256 amount)
+unstake(uint256 amount)
+claimRewards()
+distributeRewards(uint256 amount) onlyAdmin
+setAdmin(address newAdmin) onlyAdmin
+viewOwed(address user) view returns uint256
+GatingRegistry: 0x65AE4EEbb92794DFde051964e8Aa0650ac42A8Ce
+registerGatingToken(address tokenAddress)
+hasAccess(address creator, address viewer) view returns bool
+updateVerifyContract(address newVerify) onlyAdmin
+CreatorTokenFactory: 0xAD865192d6b99a3D22fD0557e44Ddd3A6e596eee
+deployCreatorToken(string name, string symbol) returns address
+getAllTokens() view returns address[]
+getTokensByCreator(address creator) view returns address[]
+NFTMarketplace: 0xf18566A1a2446BbBF5A697D9381036B8Ecd5F238
+listItem(string item, uint256 price)
+purchaseItem(uint256 id)
+updateFeeSettings(uint256 feePct, uint256 founderSharePct) onlyOwner
+updateWallets(address founder, address treasury) onlyOwner
+Mocks (used by WrapperUpg today)
+
+GatingMetricsMock: 0x82668948C02a2f9B24c4DC38b350D4d27180C04a
+setAdmin(address newAdmin) onlyAdmin
+setIssuedCTDSG(address creator, bool val) onlyAdmin
+setUniqueBuyerCount(address creator, uint256 count) onlyAdmin
+hasIssuedCTDSG(address creator) view returns bool
+uniqueBuyerCount(address creator) view returns uint256
+ContentOracleMock: 0x55822cA226C9dB73dE6EA14B10D5c10abAb4bdd7
+setAdmin(address newAdmin) onlyAdmin
+setPostedContent(address user, bool val) onlyAdmin
+setVoted(address user, bool val) onlyAdmin
+hasPostedContent(address user) view returns bool
+hasVoted(address user) view returns bool
+Notes
+
+App alias switched: “VestingWrapper” now points to the upgradeable proxy 0x083D…, and legacy 0xbf79… is marked deprecated in deployments/base.json.
+The DAO proposal helper is available to update the wrapper’s dependencies:
+npx hardhat run scripts/propose-wrapper-setter.js --network base -- action=verify new=0xNEW_VERIFY
+actions: verify | metrics | content; optional: wrapper=0xWRAPPER_PROXY, desc="…"

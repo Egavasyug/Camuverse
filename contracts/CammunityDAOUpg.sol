@@ -12,7 +12,8 @@ import "./interfaces/ITreasury.sol";
 
 import "./interfaces/ITreasury.sol";
 
-contract ModifiedCammunityDAOUpgradeable is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
+contract CammunityDAO is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
+    function contractName() external pure returns (string memory) { return "CammunityDAO"; }
     ICamuVerify public camuVerify;
     ICamuCoin public camuCoin;
     ICamuToken public camuToken;
@@ -46,7 +47,9 @@ contract ModifiedCammunityDAOUpgradeable is Initializable, OwnableUpgradeable, R
         bool executed;
         mapping(address => bool) verifiedVoted;
         mapping(address => bool) tokenVoted;
-    }
+        address callTarget;
+        bytes callData;
+        }
 
     mapping(uint256 => Proposal) public proposals;
 
@@ -165,6 +168,31 @@ contract ModifiedCammunityDAOUpgradeable is Initializable, OwnableUpgradeable, R
         emit NewProposal(proposalCount, description, proposalType);
         proposalCount++;
     }
+    /**
+     * @notice Create a configuration proposal that, upon passing Stage 2, executes a call.
+     *         Use for DAO self-calls (e.g., updateDurations/threshold) or owned contracts (e.g., CamuVerify.addVerifier).
+     */
+    function createConfigProposal(
+        string memory description,
+        address target,
+        bytes calldata data
+    ) external {
+        require(camuCoin.balanceOf(msg.sender) > 0, "Must hold CAMC");
+        require(target != address(0), "No target");
+        Proposal storage p = proposals[proposalCount];
+        p.id = proposalCount;
+        p.description = description;
+        p.proposalType = ProposalType.TEXT; // keep enum stable; use call data to indicate executable
+        p.target = payable(address(0));
+        p.amount = 0;
+        p.callTarget = target;
+        p.callData = data;
+        p.voteStart = block.timestamp;
+        p.stage1Deadline = p.voteStart + stage1Duration;
+        p.stage2Deadline = p.stage1Deadline + stage2Duration;
+        emit NewProposal(proposalCount, description, ProposalType.TEXT);
+        proposalCount++;
+    }
 
     function voteStage1(uint256 proposalId) external {
         Proposal storage p = proposals[proposalId];
@@ -217,8 +245,15 @@ contract ModifiedCammunityDAOUpgradeable is Initializable, OwnableUpgradeable, R
             require(p.tokenVotes >= (totalVotes * 75) / 100, "Termination approval");
             require(block.timestamp >= p.voteStart + 7 days, "Delay not met");
         }
+        if (p.callTarget != address(0) && p.callData.length > 0) {
+            (bool ok, ) = p.callTarget.call(p.callData);
+            require(ok, "Call failed" );
+        }
 
         p.executed = true;
         emit ProposalExecuted(proposalId);
     }
 }
+
+
+

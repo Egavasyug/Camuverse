@@ -1,0 +1,1150 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xF5dbA67c3803833836259720f1cDFd0725468dAc",
+      "txHash": "0xf8ed3961c49ebc7c66d3c28d40a043c132a5b48a786a710813793f8b1df3933c",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x083D68D5FD70aeF71fc84345ec3B1F1E5204c6E3",
+      "txHash": "0x4797deb4d607464711c5d5f72a661bcf7d5fb3ba561311a511febb6e71851a3e",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "7ee6e9995f15fe74a80d3653da44046a8942dcdf9486b396055e8bdf56ddd2da": {
+      "address": "0xabf87fBa109cFFF55DbA690e3E3a122c044a3f33",
+      "txHash": "0xf41d3d47c0b2d95eccdb959035435f5d98b8dcb3e4fae9776afc8b1b875daaa4",
+      "layout": {
+        "solcVersion": "0.8.30",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:40"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "camuVerify",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_contract(ICamuVerify)1767",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:16"
+          },
+          {
+            "label": "camuCoin",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_contract(ICamuCoin)1733",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:17"
+          },
+          {
+            "label": "camuToken",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_contract(ICamuToken)1748",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:18"
+          },
+          {
+            "label": "treasury",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_contract(ITreasury)1784",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:19"
+          },
+          {
+            "label": "bootstrapAdmin",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_address",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:21"
+          },
+          {
+            "label": "setupFinalized",
+            "offset": 20,
+            "slot": "155",
+            "type": "t_bool",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:22"
+          },
+          {
+            "label": "proposalCount",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:24"
+          },
+          {
+            "label": "lastResetMonth",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:25"
+          },
+          {
+            "label": "monthlySpent",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:26"
+          },
+          {
+            "label": "stage1ThresholdPercent",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:28"
+          },
+          {
+            "label": "stage1Duration",
+            "offset": 0,
+            "slot": "160",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:29"
+          },
+          {
+            "label": "stage2Duration",
+            "offset": 0,
+            "slot": "161",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:30"
+          },
+          {
+            "label": "proposals",
+            "offset": 0,
+            "slot": "162",
+            "type": "t_mapping(t_uint256,t_struct(Proposal)849_storage)",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:51"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_address_payable": {
+            "label": "address payable",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(ICamuCoin)1733": {
+            "label": "contract ICamuCoin",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICamuToken)1748": {
+            "label": "contract ICamuToken",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICamuVerify)1767": {
+            "label": "contract ICamuVerify",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITreasury)1784": {
+            "label": "contract ITreasury",
+            "numberOfBytes": "20"
+          },
+          "t_enum(ProposalType)815": {
+            "label": "enum CammunityDAO.ProposalType",
+            "members": [
+              "TEXT",
+              "FUNDING",
+              "TERMINATION"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Proposal)849_storage)": {
+            "label": "mapping(uint256 => struct CammunityDAO.Proposal)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Proposal)849_storage": {
+            "label": "struct CammunityDAO.Proposal",
+            "members": [
+              {
+                "label": "id",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "proposalType",
+                "type": "t_enum(ProposalType)815",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "target",
+                "type": "t_address_payable",
+                "offset": 1,
+                "slot": "2"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "verifiedVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "tokenVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "voteStart",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "stage1Deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "stage2Deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "stage1Passed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "9"
+              },
+              {
+                "label": "verifiedVoted",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "10"
+              },
+              {
+                "label": "tokenVoted",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "11"
+              }
+            ],
+            "numberOfBytes": "384"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "f2066ca0452486280a9115b5b5e3db4a552d7ed9e8d2160869bdf54e8a51762e": {
+      "address": "0x0C88F507b4aF522435A8BB71d08AcDD7aC70B9f9",
+      "txHash": "0xb3080e4d25139d5c9f4aa66aee4cf9c67d94227c3b16feb608898e9e1ee22c2d",
+      "layout": {
+        "solcVersion": "0.8.30",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:40"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "camuVerify",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_contract(ICamuVerify)1775",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:17"
+          },
+          {
+            "label": "camuCoin",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_contract(ICamuCoin)1741",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:18"
+          },
+          {
+            "label": "camuToken",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_contract(ICamuToken)1756",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:19"
+          },
+          {
+            "label": "treasury",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_contract(ITreasury)1792",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:20"
+          },
+          {
+            "label": "bootstrapAdmin",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_address",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:22"
+          },
+          {
+            "label": "setupFinalized",
+            "offset": 20,
+            "slot": "155",
+            "type": "t_bool",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:23"
+          },
+          {
+            "label": "proposalCount",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:25"
+          },
+          {
+            "label": "lastResetMonth",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:26"
+          },
+          {
+            "label": "monthlySpent",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:27"
+          },
+          {
+            "label": "stage1ThresholdPercent",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:29"
+          },
+          {
+            "label": "stage1Duration",
+            "offset": 0,
+            "slot": "160",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:30"
+          },
+          {
+            "label": "stage2Duration",
+            "offset": 0,
+            "slot": "161",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:31"
+          },
+          {
+            "label": "proposals",
+            "offset": 0,
+            "slot": "162",
+            "type": "t_mapping(t_uint256,t_struct(Proposal)857_storage)",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:52"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_address_payable": {
+            "label": "address payable",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(ICamuCoin)1741": {
+            "label": "contract ICamuCoin",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICamuToken)1756": {
+            "label": "contract ICamuToken",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICamuVerify)1775": {
+            "label": "contract ICamuVerify",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITreasury)1792": {
+            "label": "contract ITreasury",
+            "numberOfBytes": "20"
+          },
+          "t_enum(ProposalType)823": {
+            "label": "enum CammunityDAO.ProposalType",
+            "members": [
+              "TEXT",
+              "FUNDING",
+              "TERMINATION"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Proposal)857_storage)": {
+            "label": "mapping(uint256 => struct CammunityDAO.Proposal)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Proposal)857_storage": {
+            "label": "struct CammunityDAO.Proposal",
+            "members": [
+              {
+                "label": "id",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "proposalType",
+                "type": "t_enum(ProposalType)823",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "target",
+                "type": "t_address_payable",
+                "offset": 1,
+                "slot": "2"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "verifiedVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "tokenVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "voteStart",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "stage1Deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "stage2Deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "stage1Passed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "9"
+              },
+              {
+                "label": "verifiedVoted",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "10"
+              },
+              {
+                "label": "tokenVoted",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "11"
+              }
+            ],
+            "numberOfBytes": "384"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "914df8ecb395b749e943d5679fe2bc0b97ba059111b979cf8666e67a40a723a1": {
+      "address": "0x835c337d5Cf784F789A14E35B4fe69d596E33469",
+      "txHash": "0xd81070b3285ed8661cbc5c9f0a8dada4bda1f8bc1150cd2e3c271d89d00ddb37",
+      "layout": {
+        "solcVersion": "0.8.30",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:40"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:88"
+          },
+          {
+            "label": "camuVerify",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_contract(ICamuVerify)1931",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:17"
+          },
+          {
+            "label": "camuCoin",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_contract(ICamuCoin)1897",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:18"
+          },
+          {
+            "label": "camuToken",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_contract(ICamuToken)1912",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:19"
+          },
+          {
+            "label": "treasury",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_contract(ITreasury)1948",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:20"
+          },
+          {
+            "label": "bootstrapAdmin",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_address",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:22"
+          },
+          {
+            "label": "setupFinalized",
+            "offset": 20,
+            "slot": "155",
+            "type": "t_bool",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:23"
+          },
+          {
+            "label": "proposalCount",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:25"
+          },
+          {
+            "label": "lastResetMonth",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:26"
+          },
+          {
+            "label": "monthlySpent",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:27"
+          },
+          {
+            "label": "stage1ThresholdPercent",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:29"
+          },
+          {
+            "label": "stage1Duration",
+            "offset": 0,
+            "slot": "160",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:30"
+          },
+          {
+            "label": "stage2Duration",
+            "offset": 0,
+            "slot": "161",
+            "type": "t_uint256",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:31"
+          },
+          {
+            "label": "proposals",
+            "offset": 0,
+            "slot": "162",
+            "type": "t_mapping(t_uint256,t_struct(Proposal)861_storage)",
+            "contract": "CammunityDAO",
+            "src": "contracts\\CammunityDAOUpg.sol:54"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_address_payable": {
+            "label": "address payable",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes_storage": {
+            "label": "bytes",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICamuCoin)1897": {
+            "label": "contract ICamuCoin",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICamuToken)1912": {
+            "label": "contract ICamuToken",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICamuVerify)1931": {
+            "label": "contract ICamuVerify",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ITreasury)1948": {
+            "label": "contract ITreasury",
+            "numberOfBytes": "20"
+          },
+          "t_enum(ProposalType)823": {
+            "label": "enum CammunityDAO.ProposalType",
+            "members": [
+              "TEXT",
+              "FUNDING",
+              "TERMINATION"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Proposal)861_storage)": {
+            "label": "mapping(uint256 => struct CammunityDAO.Proposal)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Proposal)861_storage": {
+            "label": "struct CammunityDAO.Proposal",
+            "members": [
+              {
+                "label": "id",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "proposalType",
+                "type": "t_enum(ProposalType)823",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "target",
+                "type": "t_address_payable",
+                "offset": 1,
+                "slot": "2"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "verifiedVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "tokenVotes",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "voteStart",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "stage1Deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "stage2Deadline",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "stage1Passed",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "executed",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "9"
+              },
+              {
+                "label": "verifiedVoted",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "10"
+              },
+              {
+                "label": "tokenVoted",
+                "type": "t_mapping(t_address,t_bool)",
+                "offset": 0,
+                "slot": "11"
+              },
+              {
+                "label": "callTarget",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "12"
+              },
+              {
+                "label": "callData",
+                "type": "t_bytes_storage",
+                "offset": 0,
+                "slot": "13"
+              }
+            ],
+            "numberOfBytes": "448"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "829b349269c63ddb574761b83b471f34c65d563f8af564e0fa8dad9fdd0d5503": {
+      "address": "0xBCeA373D66b354c3f2b2653A24152FBcE6001e17",
+      "txHash": "0x4d244457068ef99fca8d72588a6d1009b0739824c0f35750576a686c66703e35",
+      "layout": {
+        "solcVersion": "0.8.30",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:40"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "camuVerify",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_contract(ICamuVerifyMinimalUpg)8740",
+            "contract": "VestingWrapperUpg",
+            "src": "contracts\\VestingWrapperUpg.sol:22"
+          },
+          {
+            "label": "gatingMetrics",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IGatingMetricsUpg)8770",
+            "contract": "VestingWrapperUpg",
+            "src": "contracts\\VestingWrapperUpg.sol:23"
+          },
+          {
+            "label": "contentOracle",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_contract(IContentOracleUpg)8755",
+            "contract": "VestingWrapperUpg",
+            "src": "contracts\\VestingWrapperUpg.sol:24"
+          },
+          {
+            "label": "unlockedMilestones",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VestingWrapperUpg",
+            "src": "contracts\\VestingWrapperUpg.sol:26"
+          },
+          {
+            "label": "unlockedTokens",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "VestingWrapperUpg",
+            "src": "contracts\\VestingWrapperUpg.sol:27"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(ICamuVerifyMinimalUpg)8740": {
+            "label": "contract ICamuVerifyMinimalUpg",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IContentOracleUpg)8755": {
+            "label": "contract IContentOracleUpg",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IGatingMetricsUpg)8770": {
+            "label": "contract IGatingMetricsUpg",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    }
+  }
+}

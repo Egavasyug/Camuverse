@@ -1,0 +1,103 @@
+[
+  {
+    "network": "base",
+    "timestamp": "2025-09-14T02:29:10.025Z",
+    "proxy": "0xF5dbA67c3803833836259720f1cDFd0725468dAc",
+    "implementation": "0xabf87fBa109cFFF55DbA690e3E3a122c044a3f33"
+  },
+  {
+    "name": "CamuVerify",
+    "address": "0x805fd312C62714a87Bcd15F191D1B4Ce67AefeAd",
+    "timestamp": "2025-09-14T03:57:06.381Z"
+  },
+  {
+    "name": "MultiSigTreasury",
+    "address": "0xdFB884d7630CD47C539e276aa5a62ce59F607687",
+    "timestamp": "2025-09-14T03:59:36.664Z"
+  },
+  {
+    "name": "CamuToken",
+    "address": "0x52407303937a59C12Cb0D8Cd1B64c33dC94c6899",
+    "timestamp": "2025-09-14T03:59:38.835Z"
+  },
+  {
+    "name": "CamuCoin",
+    "address": "0x4180bB0503ec74eEC9017Ea49B619FecF367E725",
+    "timestamp": "2025-09-14T03:59:40.921Z"
+  },
+  {
+    "name": "CAMTStakingVault",
+    "address": "0xEa29Ec8dc3403C6Fe1cA565c6798141B57d94328",
+    "timestamp": "2025-09-14T03:59:42.939Z"
+  },
+  {
+    "name": "GatingRegistry",
+    "address": "0x65AE4EEbb92794DFde051964e8Aa0650ac42A8Ce",
+    "timestamp": "2025-09-14T03:59:47.846Z"
+  },
+  {
+    "name": "CreatorTokenFactory",
+    "address": "0xAD865192d6b99a3D22fD0557e44Ddd3A6e596eee",
+    "timestamp": "2025-09-14T03:59:52.201Z"
+  },
+  {
+    "name": "CamuMarket",
+    "address": "0xf18566A1a2446BbBF5A697D9381036B8Ecd5F238",
+    "timestamp": "2025-09-14T03:59:54.074Z"
+  },
+  {
+    "name": "ContentOracleMock",
+    "address": "0xD1A7783fa1579E5e4e801694ebA6CeB17A0155CB",
+    "timestamp": "2025-09-14T12:00:42.291Z"
+  },
+  {
+    "name": "ContentOracleMock",
+    "address": "0x6910F6bb39C6638E2E5B4be18a8E8b9210647321",
+    "timestamp": "2025-09-14T12:01:21.439Z"
+  },
+  {
+    "name": "ContentOracleMock",
+    "address": "0x13e99FEF1Be9Bf6e34Fa029fAdA113e6B8c18cA7",
+    "timestamp": "2025-09-14T12:01:56.195Z"
+  },
+  {
+    "name": "GatingMetricsMock",
+    "address": "0x82668948C02a2f9B24c4DC38b350D4d27180C04a",
+    "timestamp": "2025-09-14T12:01:56.811Z"
+  },
+  {
+    "name": "ContentOracleMock",
+    "address": "0x6E4EC8696952f521980B8D376E960124B3CF98f3",
+    "timestamp": "2025-09-14T12:02:25.413Z"
+  },
+  {
+    "name": "ContentOracleMock",
+    "address": "0x79402B172D2317566154F6aeA6DEf5cEF6F5459A",
+    "timestamp": "2025-09-14T12:03:13.916Z"
+  },
+  {
+    "name": "ContentOracleMock",
+    "address": "0x55822cA226C9dB73dE6EA14B10D5c10abAb4bdd7",
+    "timestamp": "2025-09-14T12:04:10.477Z"
+  },
+  {
+    "name": "VestingWrapper",
+    "address": "0xbf79e864466fa30AA3f590794AC0452A336749B9",
+    "timestamp": "2025-09-14T12:06:23.085Z",
+    "deprecated": true,
+    "note": "Deprecated in favor of VestingWrapperUpg proxy 0x083D68D5FD70aeF71fc84345ec3B1F1E5204c6E3"
+  },
+  {
+    "name": "VestingWrapperUpg",
+    "address": "0x083D68D5FD70aeF71fc84345ec3B1F1E5204c6E3",
+    "timestamp": "2025-09-14T12:17:12.632Z",
+    "owner": "0xF5dbA67c3803833836259720f1cDFd0725468dAc"
+  },
+  {
+    "name": "VestingWrapper",
+    "address": "0x083D68D5FD70aeF71fc84345ec3B1F1E5204c6E3",
+    "alias": true,
+    "timestamp": "2025-09-14T12:22:01.884Z",
+    "note": "Alias to upgradeable proxy"
+  }
+]

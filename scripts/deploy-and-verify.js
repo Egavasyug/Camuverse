@@ -1,9 +1,9 @@
-// SPDX-License-Identifier: MIT
+﻿// SPDX-License-Identifier: MIT
 // One-shot: deploy proxy, print addresses, verify implementation on BaseScan
 // Usage examples:
 //  - npx hardhat run scripts/deploy-and-verify.js --network base
 //  - npx hardhat run scripts/deploy-and-verify.js --network baseSepolia
-const { ethers, upgrades, run } = require('hardhat');
+const fs = require('fs');\nconst path = require('path');\nconst hre = require('hardhat');\nconst { ethers, upgrades, run } = hre;
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -32,7 +32,7 @@ async function main() {
 
   // Resolve implementation
   const impl = await upgrades.erc1967.getImplementationAddress(proxy);
-  console.log('DAO implementation at:', impl);
+  console.log('DAO implementation at:', impl);\n\n  // Record deployment\n  try {\n    const network = hre.network.name;\n    const outDir = path.join(process.cwd(), 'deployments');\n    const outFile = path.join(outDir, ${network}.json);\n    fs.mkdirSync(outDir, { recursive: true });\n    let arr = [];\n    if (fs.existsSync(outFile)) {\n      try { arr = JSON.parse(fs.readFileSync(outFile, 'utf8') || '[]'); } catch (_) { arr = []; }\n    }\n    arr.push({ network, timestamp: new Date().toISOString(), proxy, implementation: impl });\n    fs.writeFileSync(outFile, JSON.stringify(arr, null, 2));\n    console.log(Saved deployment to );\n  } catch (e) {\n    console.warn('Could not write deployments file:', e.message || e);\n  }
 
   // Submit verification for implementation
   try {
@@ -46,4 +46,5 @@ async function main() {
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
+
 

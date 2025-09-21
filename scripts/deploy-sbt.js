@@ -9,8 +9,10 @@ async function main() {
   const [deployer] = await hre.ethers.getSigners();
   console.log('Deployer:', deployer.address);
 
+  const forwarder = process.env.FORWARDER_ADDRESS;
+  if (!forwarder) throw new Error('FORWARDER_ADDRESS not set');
   const F = await hre.ethers.getContractFactory('EarlyAccessSBT');
-  const c = await F.deploy();
+  const c = await F.deploy(forwarder);
   await c.waitForDeployment();
   const addr = await c.getAddress();
   console.log('EarlyAccessSBT deployed at', addr);

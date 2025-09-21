@@ -51,6 +51,7 @@ function main() {
     VestingWrapper: findLast(deployed, 'VestingWrapper') || findLast(deployed, 'VestingWrapperUpg'),
     GatingMetricsMock: findLast(deployed, 'GatingMetricsMock'),
     ContentOracleMock: findLast(deployed, 'ContentOracleMock'),
+    EarlyAccessSBT: findLast(deployed, 'EarlyAccessSBT'),
   };
 
   // Map names to artifact fully-qualified identifiers
@@ -67,6 +68,7 @@ function main() {
     VestingWrapper: ['VestingWrapperUpg.sol', 'VestingWrapperUpg'],
     GatingMetricsMock: ['mocks/GatingMetricsMock.sol', 'GatingMetricsMock'],
     ContentOracleMock: ['mocks/ContentOracleMock.sol', 'ContentOracleMock'],
+    EarlyAccessSBT: ['EarlyAccessSBT.sol', 'EarlyAccessSBT'],
   };
 
   const out = {

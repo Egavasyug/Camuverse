@@ -12,7 +12,11 @@ import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
  */
 contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
     mapping(address => bool) public hasClaimed;
+    mapping(address => uint256) public subscriberNo; // sequential display number per wallet
+    uint256 public nextSubscriberNo = 1; // starts at 1
     uint256 public totalMinted;
+
+    event Claimed(address indexed user, uint256 indexed tokenId, uint256 subscriberNo);
 
     constructor(address trustedForwarder)
         ERC721("Early Access Token", "EARLY")
@@ -24,10 +28,13 @@ contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
         address sender = _msgSender();
         require(!hasClaimed[sender], "Already claimed");
         uint256 tokenId = uint256(uint160(sender)); // Token ID derived from wallet address
+        hasClaimed[sender] = true; // effects before interactions
+        uint256 sn = nextSubscriberNo++;
+        subscriberNo[sender] = sn;
         _safeMint(sender, tokenId);
         _setTokenURI(tokenId, tokenURI); // Optional: add metadata (e.g. timestamp or campaign info)
-        hasClaimed[sender] = true;
         totalMinted++;
+        emit Claimed(sender, tokenId, sn);
     }
 
     /// @notice Override transfer functions to enforce non-transferability (Subscriber badge)
@@ -49,7 +56,14 @@ contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
         uint256 tokenId = uint256(uint160(user));
         _burn(tokenId);
         hasClaimed[user] = false;
+        if (subscriberNo[user] != 0) {
+            // Note: subscriber numbers are not recycled; keep history
+        }
         totalMinted--;
+    }
+
+    function getSubscriberNo(address user) external view returns (uint256) {
+        return subscriberNo[user];
     }
 
     // ERC2771 meta-tx overrides

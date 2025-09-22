@@ -1,0 +1,127 @@
+here is some code to go with a web3 token based on-chain waitlist implmentation Frontend Logic (Pseudocode) const hasBadge = await contract.hasClaimed(userAddress);
+if (!hasBadge) {
+await contract.claim("ipfs://.../metadata.json");
+}
+
+Check Later for Access
+if (earlyAccess.hasClaimed(userAddress)) {
+// Grant access to proposal tools, content, etc
+}
+the C:\Users\guy\Documents\Camuverse\EarlyAccessSBT.sol contains a .sol contract that can be deployed on-chain... can you help me plan for the dual implmentation of on chain contract deployment and collection of the emails wallets?
+
+
+Here’s a concrete, dual-track plan to ship an on-chain Early Access SBT plus off-chain waitlist (email + wallet), with minimal churn to your current Next/Wagmi/AppKit stack.
+
+Goals
+
+On-chain: Claim an EarlyAccess SBT (soulbound badge) once per wallet.
+Off-chain: Capture email + wallet (if present) for comms/analytics.
+UX: One modal + one CTA: “Join the waitlist — connect wallet or leave email.” If connected, show SBT status and a “Claim” path; if not, allow email-only join. Show connected address and verification status inline.
+Smart Contract
+
+Deploy EarlyAccessSBT.sol to Base (testnet first, then mainnet):
+Expose: function hasClaimed(address) view returns (bool), function claim(string memory tokenURI) or claim with controlled allowlist/conditions.
+Emit: Claimed(address indexed user).
+Make non-transferable (override transfer hooks).
+Optionally gate claim via:
+Merkle allowlist or
+Owner/manager role or
+Simple open window + reCAPTCHA+rate-limit on frontend
+Scripts:
+scripts/deploy-early-access.js (Hardhat) → store addresses per chain.
+Verify on Basescan.
+App manifest:
+Add contract to public/manifest.base.json as EarlyAccessSBT: { address, abi }.
+Treat this as the single source of truth for frontend.
+Backend (Leads)
+
+API routes:
+POST /api/leads { email?, wallet? } → 200/400
+Validate email format server-side.
+Normalize wallet to checksum if present.
+Store lead: { email, wallet, createdAt, source: 'modal' }
+If wallet present, upsert by wallet; else upsert by email.
+Optional: GET /api/leads/:wallet (admin) or webhook to your CRM.
+Storage options (pick one):
+Vercel Postgres / Supabase (recommended), or
+Vercel KV + encryption for email-at-rest (AES-GCM with LEADS_ENC_KEY).
+Compliance:
+Minimal PII: email only; no raw IPs/logs.
+Consent copy in modal (“We store minimal data (email + wallet) for waitlist purposes.”).
+Add Privacy link later.
+Frontend UX
+
+Header waitlist (you already have it; we’ll extend):
+If not connected:
+Show AppKit connect button + “Join Waitlist” modal (email entry).
+If connected:
+Show “Connected as 0x…” badge.
+Read SBT status via useReadContract({ functionName: 'hasClaimed' }).
+If not claimed, show “Claim Early Access Badge” and call useWriteContract({ functionName: 'claim', args: [tokenURI] }).
+After success, re-read claim status; show “Early Access badge claimed!” badge.
+“Get Verified” CTA: keep as placeholder with countdown; later wire to CamuVerify.
+Slides/PDF are fine as-is; they’re complementary, no change needed.
+Frontend Wiring (Wagmi)
+
+Read SBT:
+const { data: hasBadge } = useReadContract({ address, abi, functionName: 'hasClaimed', args:[address] })
+Claim:
+const { writeContract, isPending } = useWriteContract()
+writeContract({ address, abi, functionName: 'claim', args: ['ipfs://.../metadata.json'] })
+Error states:
+Show transaction pending/confirmed toasts.
+Handle user reject, out-of-gas, already-claimed, not-allowed.
+Security & Abuse Mitigation
+
+Friction options:
+reCAPTCHA v3 on POST /api/leads to reduce spam.
+Claim gating with Merkle allowlist in SBT or an open window with claimOpen toggle (in contract).
+Rate-limit claim button via simple local timer (you already added a countdown pattern).
+Emails:
+Store hashed email too (for dedupe) or encrypt at rest using LEADS_ENC_KEY env.
+No sensitive scopes beyond email + wallet.
+Data Model
+
+Lead table:
+id (uuid), email (encrypted), emailHash (sha256), wallet (string, unique nullable), source, createdAt
+Optional BadgeClaim table:
+txHash, wallet, chainId, createdAt
+You can also read claims from chain on the fly; the table helps with CRM exports.
+Deployment & Config
+
+Envs:
+LEADS_DB_URL or Supabase connection
+LEADS_ENC_KEY (32-byte base64) if encrypting emails
+NEXT_PUBLIC_SBT_ADDRESS optional; prefer manifest JSON
+Deploy contract to Base Sepolia, test flow, then mainnet.
+Update public/manifest.base.json with final mainnet address/ABI and redeploy.
+Incremental Rollout
+
+Phase 1 (now):
+Add /api/leads with storage (Supabase or Vercel PG); wire modal submit.
+Wire SBT read; display claimed/unclaimed.
+Phase 2:
+Enable claim with tokenURI (basic open claim).
+Add reCAPTCHA, rate limiting.
+Phase 3:
+Add allowlist logic or “windowed claim” guard in contract and UI.
+Add “Get Verified” integration with CamuVerify.
+Sample Code Snippets
+
+Leads API (basic, no-DB example; replace with your DB client)
+
+src/app/api/leads/route.ts
+Validates body, logs or writes to DB, returns 200.
+SBT hooks in HeaderClient
+
+useReadContract/useWriteContract as described above.
+Conditional rendering: claim button → pending/confirmed.
+I can implement Phase 1 right away:
+
+Add /api/leads (with a local DB client or a stub you can swap).
+Extend your HeaderClient to:
+Submit to /api/leads,
+Read hasClaimed,
+Provide “Claim Early Access Badge” and handle the transaction.
+Would you like me to use Vercel Postgres (quick) or Supabase (recommended for dashboards) for leads storage? If you prefer a stub now, I can wire the route to print to logs and we swap to a DB once credentials are ready.
+

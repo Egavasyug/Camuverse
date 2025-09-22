@@ -15,18 +15,26 @@ contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
     mapping(address => uint256) public walletToTokenId;    // subscriber number == tokenId (sequential)
     uint256 public nextTokenId = 1;                        // sequential token/subscriber number
     uint256 public totalMinted;
+    // Forwarder control
+    address public trustedForwarder;                       // mutable trusted forwarder
+    bool public requireForwarder = true;                   // when true, only forwarder may call claim()
 
     event Claimed(address indexed user, uint256 indexed tokenId, uint256 subscriberNo);
 
-    constructor(address trustedForwarder)
+    constructor(address forwarder)
         ERC721("Early Access Token", "EARLY")
-        ERC2771Context(trustedForwarder)
-    {}
+        ERC2771Context(forwarder)
+    {
+        trustedForwarder = forwarder;
+    }
 
     /// @notice Mints a non-transferable Subscriber badge to the sender if they haven't received one
     function claim(string memory tokenURI) external {
         address sender = _msgSender();
         require(!hasClaimed[sender], "Already claimed");
+        if (requireForwarder) {
+            require(isTrustedForwarder(msg.sender), "Forwarder required");
+        }
         uint256 tokenId = nextTokenId++;
         hasClaimed[sender] = true;            // effects before interactions
         walletToTokenId[sender] = tokenId;    // record subscriber number
@@ -64,6 +72,16 @@ contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
         return walletToTokenId[user];
     }
 
+    // --- Admin controls ---
+    function setTrustedForwarder(address newForwarder) external onlyOwner {
+        require(newForwarder != address(0), "zero forwarder");
+        trustedForwarder = newForwarder;
+    }
+
+    function setRequireForwarder(bool v) external onlyOwner {
+        requireForwarder = v;
+    }
+
     // ERC2771 meta-tx overrides
     function _msgSender()
         internal
@@ -90,5 +108,10 @@ contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
         returns (uint256)
     {
         return ERC2771Context._contextSuffixLength();
+    }
+
+    // Override to use our mutable forwarder address
+    function isTrustedForwarder(address forwarder) public view override returns (bool) {
+        return forwarder == trustedForwarder;
     }
 }

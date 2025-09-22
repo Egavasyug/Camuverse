@@ -11,9 +11,9 @@ import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
  * @notice Subscriber Badge Token (SBT) for early access / wallet registration
  */
 contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
-    mapping(address => bool) public hasClaimed;
-    mapping(address => uint256) public subscriberNo; // sequential display number per wallet
-    uint256 public nextSubscriberNo = 1; // starts at 1
+    mapping(address => bool) public hasClaimed;            // one-per-wallet guard
+    mapping(address => uint256) public walletToTokenId;    // subscriber number == tokenId (sequential)
+    uint256 public nextTokenId = 1;                        // sequential token/subscriber number
     uint256 public totalMinted;
 
     event Claimed(address indexed user, uint256 indexed tokenId, uint256 subscriberNo);
@@ -27,14 +27,13 @@ contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
     function claim(string memory tokenURI) external {
         address sender = _msgSender();
         require(!hasClaimed[sender], "Already claimed");
-        uint256 tokenId = uint256(uint160(sender)); // Token ID derived from wallet address
-        hasClaimed[sender] = true; // effects before interactions
-        uint256 sn = nextSubscriberNo++;
-        subscriberNo[sender] = sn;
+        uint256 tokenId = nextTokenId++;
+        hasClaimed[sender] = true;            // effects before interactions
+        walletToTokenId[sender] = tokenId;    // record subscriber number
         _safeMint(sender, tokenId);
-        _setTokenURI(tokenId, tokenURI); // Optional: add metadata (e.g. timestamp or campaign info)
+        _setTokenURI(tokenId, tokenURI);      // Optional: add metadata (e.g. timestamp or campaign info)
         totalMinted++;
-        emit Claimed(sender, tokenId, sn);
+        emit Claimed(sender, tokenId, tokenId);
     }
 
     /// @notice Override transfer functions to enforce non-transferability (Subscriber badge)
@@ -53,17 +52,16 @@ contract EarlyAccessSBT is ERC721URIStorage, Ownable, ERC2771Context {
     /// @notice Owner can burn token if needed (e.g. to reset)
     function burn(address user) external onlyOwner {
         require(hasClaimed[user], "No token");
-        uint256 tokenId = uint256(uint160(user));
+        uint256 tokenId = walletToTokenId[user];
         _burn(tokenId);
         hasClaimed[user] = false;
-        if (subscriberNo[user] != 0) {
-            // Note: subscriber numbers are not recycled; keep history
-        }
+        // Note: subscriber numbers (tokenIds) are not recycled; keep history, set mapping to 0
+        walletToTokenId[user] = 0;
         totalMinted--;
     }
 
     function getSubscriberNo(address user) external view returns (uint256) {
-        return subscriberNo[user];
+        return walletToTokenId[user];
     }
 
     // ERC2771 meta-tx overrides
